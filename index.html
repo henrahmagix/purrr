@@ -5,6 +5,7 @@
 </head>
 <body>
     <div id="name"></div>
+    <button id="refresh">Refresh</button>
     <script src="lib/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript">
     (function ($) {
@@ -22,12 +23,23 @@
                 'Captain Black Lips',
                 'Meaty Licks'
             ];
-            var random = Math.round(Math.random() * names.length);
-            if (random >= names.length) {
-                random = names.length - 1;
-            }
-            var name = names[random];
-            $('#name').html(name);
+            var currentName;
+            var getName = function () {
+                var random = Math.round(Math.random() * names.length);
+                if (random >= names.length) {
+                    random = names.length - 1;
+                }
+                var name = names[random];
+                if (name === currentName) {
+                    // Get a different name.
+                    getName();
+                } else {
+                    currentName = name;
+                    $('#name').html(name);
+                }
+            };
+            getName();
+            $(document).on('click', '#refresh', getName);
         });
     }(window.jQuery));
     </script>
