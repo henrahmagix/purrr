@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <title>Purrr</title>
+    <style type="text/css">
+    .loaded #loading, .loading #name, .loading #refresh {
+        display: none;
+    }
+    </style>
+</head>
+<body class="loading">
+    <div id="loading">Loading...</div>
+    <div id="name"></div>
+    <button id="refresh">Refresh</button>
+    <script src="lib/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    (function ($) {
+        'use strict';
+        $(function () {
+            $.getJSON('names.json', {format: 'jsonp'}, function (names) {
+                $(document.body).removeClass('loading').addClass('loaded');
+                var currentName;
+                var getName = function () {
+                    var random = Math.round(Math.random() * names.length);
+                    if (random >= names.length) {
+                        random = names.length - 1;
+                    }
+                    var name = names[random];
+                    if (name === currentName) {
+                        // Get a different name.
+                        getName();
+                    } else {
+                        currentName = name;
+                        $('#name').html(name);
+                    }
+                };
+                getName();
+                $(document).on('click', '#refresh', getName);
+            });
+        });
+    }(window.jQuery));
+    </script>
+</body>
+</html>
