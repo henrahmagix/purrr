@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <title>Purrr</title>
+</head>
+<body>
+    <div id="name"></div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    (function ($) {
+        'use strict';
+        $(function () {
+            var names = [
+                'Goblin',
+                'Rongo Konkle Bong',
+                'Panther Lite&reg;'
+            ];
+            var random = Math.round(Math.random() * names.length);
+            if (random >= names.length) {
+                random = names.length - 1;
+            }
+            var name = names[random];
+            $('#name').html(name);
+        });
+    }(window.jQuery));
+    </script>
+</body>
+</html>
